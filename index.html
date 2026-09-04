@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guía Digital · Introducción a la Sociología · UGB</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a3a5c;
+            --primary-light: #2a5a7c;
+            --accent: #c9a84c;
+            --accent-light: #e8d08a;
+            --bg-light: #f4f7fb;
+            --text-dark: #1e2b37;
+            --text-muted: #3d4f5e;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+            --radius: 16px;
+            --transition: 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: var(--primary);
+            color: #fff;
+            padding: 0.6rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
+        }
+
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-area img {
+            height: 72px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s;
+        }
+        .logo-area img:hover {
+            transform: scale(1.05);
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem 0.5rem;
+        }
+
+        nav button {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid transparent;
+            color: #fff;
+            padding: 0.4rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: var(--accent);
+            color: var(--primary);
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        nav button i {
+            margin-right: 0.3rem;
+        }
+
+        /* ===== CONTENEDOR DE PANTALLAS ===== */
+        .screen-container {
+            flex: 1;
+            background: var(--bg-light);
+            overflow: visible;
+        }
+
+        .screen {
+            display: none;
+            opacity: 0;
+            transform: scale(0.98) translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            padding: 1.5rem 1.5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            animation: none;
+        }
+
+        .screen.active {
+            display: block;
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            animation: fadeSlide 0.35s ease forwards;
+        }
+
+        @keyframes fadeSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(18px) scale(0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ===== BOTÓN VOLVER ===== */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(26, 58, 92, 0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-back:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26, 58, 92, 0.25);
+        }
+
+        .btn-back i {
+            font-size: 1.1rem;
+        }
+
+        /* ===== TARJETAS DE MÓDULO EN INICIO ===== */
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .module-card {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 1.2rem 1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 5px solid var(--accent);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        .module-card .mod-num {
+            font-size: 0.75rem;
+            background: var(--accent);
+            color: var(--primary);
+            font-weight: 700;
+            padding: 0.1rem 0.7rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 0.4rem;
+        }
+
+        .module-card h4 {
+            font-size: 1.05rem;
+            color: var(--primary);
+            margin: 0.3rem 0 0.2rem;
+        }
+
+        .module-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            flex: 1;
+        }
+
+        .module-card .btn-module {
+            margin-top: 0.8rem;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .module-card .btn-module:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+        }
+
+        /* ===== INICIO ===== */
+        .hero-home {
+            text-align: center;
+            padding: 1.5rem 0 0.5rem;
+        }
+
+        .hero-home .logo-big {
+            max-width: 280px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 1rem;
+            display: block;
+            filter: drop-shadow(0 8px 20px rgba(26, 58, 92, 0.15));
+            transition: transform 0.3s;
+        }
+
+        .hero-home .logo-big:hover {
+            transform: scale(1.02);
+        }
+
+        .hero-home h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .hero-home h1 i {
+            color: var(--accent);
+            margin-right: 0.4rem;
+        }
+
+        .hero-home .subtitle {
+            font-size: 1.2rem;
+            color: var(--primary-light);
+            font-weight: 300;
+        }
+
+        .hero-home .team {
+            margin: 1.2rem auto 0.5rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem 2rem;
+            background: rgba(26, 58, 92, 0.05);
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            max-width: 800px;
+        }
+
+        .hero-home .team-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.1rem;
+        }
+
+        .hero-home .team-item .name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .hero-home .team-item .role {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .hero-home .team i {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 2.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(26, 58, 92, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(26, 58, 92, 0.25);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 0.8rem 2.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(201, 168, 76, 0.3);
+        }
+
+        .btn-accent:hover {
+            background: var(--accent-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.35);
+        }
+
+        /* ===== CONTENIDO DE MÓDULOS ===== */
+        .module-content {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 2rem 2rem;
+            box-shadow: var(--shadow);
+            border-left: 6px solid var(--accent);
+        }
+
+        .module-content h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .module-content h2 i {
+            color: var(--accent);
+        }
+
+        .module-content h3 {
+            font-size: 1.3rem;
+            color: var(--primary-light);
+            margin: 1.4rem 0 0.6rem;
+        }
+
+        .module-content h4 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin: 1rem 0 0.4rem;
+        }
+
+        .module-content p {
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .module-content ul {
+            padding-left: 1.6rem;
+            margin: 0.6rem 0 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .module-content ul li {
+            margin-bottom: 0.3rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Línea de tiempo */
+        .timeline {
+            position: relative;
+            padding: 1rem 0 0.5rem 2rem;
+            border-left: 4px solid var(--accent);
+            margin: 1rem 0 0.5rem;
+        }
+
+        .timeline-item {
+            margin-bottom: 1.8rem;
+            padding-left: 1.2rem;
+            position: relative;
+            opacity: 1;
+            transform: none;
+            animation: none;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.2rem;
+            top: 0.35rem;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 3px var(--accent);
+        }
+
+        .timeline-item .year {
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--accent-light);
+            padding: 0.1rem 0.7rem;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+
+        /* Grid precursores */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 0.8rem;
+        }
+
+        .grid-cards .card {
+            background: var(--bg-light);
+            padding: 1rem 1rem;
+            border-radius: 12px;
+            border-bottom: 4px solid var(--accent);
+            transition: var(--transition);
+        }
+
+        .grid-cards .card:hover {
+            background: #eef3fa;
+            transform: scale(1.02);
+        }
+
+        .grid-cards .card strong {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        .grid-cards .card small {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Accordion */
+        .accordion {
+            margin: 1rem 0 0.5rem;
+        }
+
+        .accordion-item {
+            background: var(--bg-light);
+            border-radius: 12px;
+            margin-bottom: 0.7rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            transition: var(--transition);
+        }
+
+        .accordion-item:hover {
+            border-color: var(--accent);
+        }
+
+        .accordion-header {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 1rem 1.4rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: var(--primary);
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .accordion-header:hover {
+            background: rgba(201, 168, 76, 0.08);
+        }
+
+        .accordion-header i {
+            transition: transform 0.3s;
+            color: var(--accent);
+        }
+
+        .accordion-item.open .accordion-header i {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s;
+            padding: 0 1.4rem;
+            color: var(--text-muted);
+        }
+
+        .accordion-item.open .accordion-body {
+            max-height: 600px;
+            padding: 0 1.4rem 1.4rem;
+        }
+
+        /* ===== EXÁMENES ===== */
+        .exam-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .exam-card {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 2rem 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border-top: 6px solid var(--accent);
+        }
+
+        .exam-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .exam-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .exam-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+
+        .exam-card p {
+            color: var(--text-muted);
+            margin: 0.5rem 0 1.2rem;
+        }
+
+        .exam-card .btn-exam {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .exam-card .btn-exam:hover {
+            background: var(--primary-light);
+            transform: scale(1.02);
+        }
+
+        /* Cuestionarios dentro de exámenes */
+        .quiz-area {
+            background: var(--bg-light);
+            border-radius: var(--radius);
+            padding: 1.8rem 1.8rem;
+            margin: 1.2rem 0 0.5rem;
+        }
+
+        .quiz-question {
+            background: #fff;
+            padding: 1.2rem 1.4rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .quiz-question p {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-question label {
+            display: block;
+            padding: 0.3rem 0.2rem;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .quiz-question label:hover {
+            color: var(--primary);
+        }
+
+        .quiz-question input[type="radio"] {
+            margin-right: 0.6rem;
+            accent-color: var(--accent);
+        }
+
+        .result-box {
+            margin-top: 1.2rem;
+            padding: 1rem 1.4rem;
+            border-radius: 12px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-box.success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 6px solid #28a745;
+        }
+
+        .result-box.error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 6px solid #dc3545;
+        }
+
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 0.7rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(26, 58, 92, 0.2);
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26, 58, 92, 0.25);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--primary);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 1.5rem 0 1.2rem;
+            margin-top: 1.5rem;
+            border-radius: 40px 40px 0 0;
+            text-align: center;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        footer img {
+            height: 44px;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-flex {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.3rem;
+            }
+            .logo-area {
+                justify-content: center;
+            }
+            .logo-area img {
+                height: 60px;
+            }
+            nav {
+                justify-content: center;
+            }
+            nav button {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.6rem;
+            }
+            .hero-home h1 {
+                font-size: 2rem;
+            }
+            .hero-home .subtitle {
+                font-size: 1rem;
+            }
+            .hero-home .team {
+                flex-direction: column;
+                gap: 0.6rem;
+                padding: 1rem 1.5rem;
+                border-radius: 30px;
+            }
+            .hero-home .team-item .name {
+                font-size: 0.9rem;
+            }
+            .hero-home .team-item .role {
+                font-size: 0.7rem;
+            }
+            .module-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .exam-grid {
+                grid-template-columns: 1fr;
+            }
+            .screen {
+                padding: 1rem 1rem 2rem;
+            }
+            .module-content {
+                padding: 1.2rem 1rem;
+            }
+            .module-content h2 {
+                font-size: 1.6rem;
+            }
+            .grid-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+            .hero-home .logo-big {
+                max-width: 220px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+            .grid-cards {
+                grid-template-columns: 1fr;
+            }
+            .hero-home .team {
+                padding: 0.8rem 1rem;
+            }
+            .btn-primary,
+            .btn-accent {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="header-flex">
+            <div class="logo-area">
+                <img src="UGB_LOGOTIPO.png" alt="UGB Logo" />
+            </div>
+            <nav>
+                <button class="active" data-screen="inicio"><i class="fas fa-home"></i> Inicio</button>
+                <button data-screen="modulo1">M1</button>
+                <button data-screen="modulo2">M2</button>
+                <button data-screen="modulo3">M3</button>
+                <button data-screen="modulo4">M4</button>
+                <button data-screen="modulo5">M5</button>
+                <button data-screen="examenes"><i class="fas fa-pencil-alt"></i> Exámenes</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ========== CONTENEDOR DE PANTALLAS ========== -->
+    <div class="screen-container">
+
+        <!-- ==================== INICIO ==================== -->
+        <div id="screen-inicio" class="screen active">
+            <div class="hero-home">
+                <img src="UGB_LOGOTIPO.png" alt="UGB" class="logo-big" />
+                <h1><i class="fas fa-graduation-cap"></i> Guía Digital de Aprendizaje</h1>
+                <div class="subtitle">Introducción a la Sociología · Unidad 1</div>
+                <div class="team">
+                    <div class="team-item">
+                        <i class="fas fa-code"></i>
+                        <span class="name">Noelia Anabelle Guerrero García</span>
+                        <span class="role">Líder de Desarrollo Web y Frontend</span>
+                    </div>
+                    <div class="team-item">
+                        <i class="fas fa-pen-fancy"></i>
+                        <span class="name">Brandy Cecilia Romero Luna</span>
+                        <span class="role">Redactor Académico y Editor de Contenido</span>
+                    </div>
+                    <div class="team-item">
+                        <i class="fas fa-edit"></i>
+                        <span class="name">Matilde Estefany Aguilar Mejicanos</span>
+                        <span class="role">Redactor de Contenido y Creador de Recursos Dinámicos</span>
+                    </div>
+                </div>
+                <p style="max-width:600px; margin:1rem auto 0; color:var(--text-muted);">
+                    Explora los fundamentos de la sociología a través de módulos interactivos y pon a prueba tus conocimientos con nuestras evaluaciones.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" data-screen="modulo1"><i class="fas fa-book-open"></i> Explorar Módulos</button>
+                    <button class="btn-accent" data-screen="examenes"><i class="fas fa-check-circle"></i> Realizar Exámenes</button>
+                </div>
+            </div>
+
+            <h3 style="color:var(--primary); margin-top:1.5rem;"><i class="fas fa-layer-group" style="color:var(--accent);"></i> Módulos de aprendizaje</h3>
+            <div class="module-grid">
+                <div class="module-card">
+                    <span class="mod-num">Módulo 1</span>
+                    <h4><i class="fas fa-flask"></i> Ciencia y Ciencias Sociales</h4>
+                    <p>Delimitación del conocimiento científico vs. sentido común. Clasificación de las ciencias.</p>
+                    <button class="btn-module" data-screen="modulo1">Abrir módulo</button>
+                </div>
+                <div class="module-card">
+                    <span class="mod-num">Módulo 2</span>
+                    <h4><i class="fas fa-users"></i> Conceptualización de la Sociología</h4>
+                    <p>Definición, objeto de estudio, campo de acción y relación multidisciplinaria.</p>
+                    <button class="btn-module" data-screen="modulo2">Abrir módulo</button>
+                </div>
+                <div class="module-card">
+                    <span class="mod-num">Módulo 3</span>
+                    <h4><i class="fas fa-history"></i> Desarrollo Histórico</h4>
+                    <p>Contexto sociohistórico de surgimiento: Ilustración, Revolución Francesa e Industrial.</p>
+                    <button class="btn-module" data-screen="modulo3">Abrir módulo</button>
+                </div>
+                <div class="module-card">
+                    <span class="mod-num">Módulo 4</span>
+                    <h4><i class="fas fa-user-tie"></i> Precursores y Exponentes</h4>
+                    <p>Saint-Simon, Comte, Spencer, Durkheim, Marx y Weber.</p>
+                    <button class="btn-module" data-screen="modulo4">Abrir módulo</button>
+                </div>
+                <div class="module-card">
+                    <span class="mod-num">Módulo 5</span>
+                    <h4><i class="fas fa-layer-group"></i> Corrientes y Teorías Sociológicas</h4>
+                    <p>Positivismo, Materialismo Histórico, Estructural Funcionalismo, Teoría del Conflicto y Teoría Crítica.</p>
+                    <button class="btn-module" data-screen="modulo5">Abrir módulo</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== MÓDULO 1 ==================== -->
+        <div id="screen-modulo1" class="screen">
+            <button class="btn-back" data-screen="inicio"><i class="fas fa-arrow-left"></i> Volver a Inicio</button>
+            <div class="module-content">
+                <h2><i class="fas fa-flask"></i> Módulo 1 · Ciencia y Ciencias Sociales</h2>
+
+                <h3>Delimitación del conocimiento científico vs. sentido común</h3>
+                <p>Para comprender el estudio científico de la sociedad, es fundamental deslindar el conocimiento sistemático de las percepciones del saber cotidiano. La ciencia se define como el conjunto de conocimientos objetivos, racionales y verificables sobre una materia determinada, los cuales se obtienen mediante la observación metódica, la experimentación y la comprobación rigurosa de hipótesis.</p>
+                <p>A diferencia del sentido común —que se basa en experiencias espontáneas y supuestos no probados—, la ciencia exige la sistematización y la utilización de una metodología adaptada a su objeto de estudio. Autores clave como Mario Tamayo y Tamayo (2000) conciben la ciencia como un cuerpo de saberes ciertos o probables, organizados metódicamente mediante la verificación de objetos de la misma naturaleza. Asimismo, Ander Egg (1993) resalta que el conocimiento científico requiere contrastación empírica directa con la realidad y una estructura orgánica que permita su transmisión.</p>
+                <p>A nivel metodológico, la frontera entre la ciencia y las opiniones del sentido común se traza mediante rasgos específicos:</p>
+                <ul>
+                    <li><strong>Carácter fáctico y trascendente:</strong> Comienza describiendo los hechos reales tal y como suceden, pero trasciende la masa de experiencias inmediatas para producir y fundamentar nuevos conocimientos.</li>
+                    <li><strong>Proceso metódico y analítico:</strong> La investigación se planifica rigurosamente para descomponer totalidades complejas en sus partes constitutivas, descubriendo sus interconexiones internas.</li>
+                    <li><strong>Cualidad sistemática, explicativa y predictiva:</strong> Articula un cuerpo lógico de ideas destinadas a responder al <em>porqué</em> y al <em>cómo</em> de los fenómenos, lo que le permite reconstruir el pasado y proyectar escenarios futuros con rigurosidad.</li>
+                </ul>
+
+                <h3>Clasificación de las ciencias y ubicación de las Ciencias Sociales</h3>
+                <p>Las Ciencias Sociales constituyen una denominación genérica para el conjunto de disciplinas científicas orientadas al análisis de las relaciones, estructuras e interacciones humanas en sociedad. Nacieron formalmente con el propósito de estudiar al ser humano en su dimensión socio-cultural, examinando su comportamiento, sus formas de organización colectiva y sus transformaciones en contextos económicos, políticos, históricos y geográficos determinados.</p>
+                <p>Dentro del marco general de la clasificación científica, las Ciencias Sociales se organizan en dos grandes ramas según la naturaleza de su enfoque:</p>
+                <ul>
+                    <li><strong>Ciencias centradas en el ser humano social:</strong> Disciplinas cuyo objeto directo es la conducta e historia de las colectividades humanas, entre las que se ubican la Antropología, la Sociología y la Historia.</li>
+                    <li><strong>Ciencias de los productos de la actividad social:</strong> Disciplinas orientadas a las estructuras y normativas creadas por la vida comunitaria, donde se inscriben la Economía, el Derecho y la Ciencia Política.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ==================== MÓDULO 2 ==================== -->
+        <div id="screen-modulo2" class="screen">
+            <button class="btn-back" data-screen="inicio"><i class="fas fa-arrow-left"></i> Volver a Inicio</button>
+            <div class="module-content">
+                <h2><i class="fas fa-users"></i> Módulo 2 · Conceptualización de la Sociología</h2>
+
+                <h3>Definición y perspectivas teóricas de la sociología</h3>
+                <p>La Sociología ha sido conceptualizada desde diversos enfoques teóricos a lo largo del tiempo, consolidándose como una disciplina indispensable para interpretar la complejidad social. Auguste Comte, considerado el padre de la disciplina y del positivismo, la definió como una ciencia positiva dedicada a descubrir las leyes fundamentales del orden (<em>estática social</em>) y del progreso (<em>dinámica social</em>) mediante metodologías empíricas derivadas de las ciencias naturales.</p>
+                <p>Por su parte, Émile Durkheim revolucionó el campo al establecer que la sociología debía centrarse en los <strong>hechos sociales</strong>, a los cuales definió como modos de actuar, pensar y sentir exteriores al individuo que ejercen sobre él una presión coercitiva y que deben ser analizados objetivamente como "cosas".</p>
+                <p>En contraste con la postura positivista, Max Weber fundó la <strong>Sociología Comprensiva</strong>, postulando que esta ciencia busca interpretar y comprender el sentido intrínseco de la <strong>acción social</strong> para explicar causalmente su desarrollo y efectos.</p>
+                <p>El desarrollo conceptual de la disciplina también incorpora marcos analíticos críticos y contemporáneos de gran vigencia:</p>
+                <ul>
+                    <li><strong>Karl Marx:</strong> Asentó las bases de la sociología crítica al analizar la sociedad a través de las relaciones de producción, las contradicciones entre burguesía y proletariado, y la lucha de clases dentro del sistema capitalista.</li>
+                    <li><strong>Pierre Bourdieu:</strong> Explicó las formas invisibles de dominación social estudiando el <em>habitus</em> interiorizado y las dinámicas de competencia dentro de diversos <em>campos</em> (económico, cultural, social y simbólico).</li>
+                    <li><strong>Anthony Giddens:</strong> Formuló la <em>Teoría de la Estructuración</em>, superando la dicotomía tradicional entre individuo y sociedad al demostrar que la estructura social y la agencia humana se producen y reproducen mutuamente.</li>
+                </ul>
+
+                <h3>Objeto de estudio, campo de acción y relación multidisciplinaria</h3>
+                <p>El objeto central de estudio de la sociología radica en la sociedad humana, sus estructuras organizativas, los comportamientos colectivos y los procesos de cambio o conservación social. Se ocupa fundamentalmente del análisis de los hechos sociales en su estado puro, los cuales se distinguen por poseer exterioridad, coercitividad, generalidad e independencia respecto a la conciencia individual.</p>
+                <p>En la práctica profesional contemporánea, el campo de acción de la sociología abarca un abanico diversificado de áreas tradicionales como la sociología de la educación, el trabajo, la política, la salud, la cultura, la zona urbana y el género. En el siglo XXI, su campo se ha expandido al análisis del impacto de la globalización, la sociedad digital, la inteligencia artificial, la desinformación y las nuevas brechas de desigualdad social.</p>
+                <p>Para abordar esta compleja realidad, y en sintonía con las posturas metodológicas modernas, la sociología trabaja de manera profundamente multidisciplinaria, relacionándose con la Ciencia Política, la Economía y la Antropología para ubicar los fenómenos locales en contextos históricos y globales.</p>
+            </div>
+        </div>
+
+        <!-- ==================== MÓDULO 3 ==================== -->
+        <div id="screen-modulo3" class="screen">
+            <button class="btn-back" data-screen="inicio"><i class="fas fa-arrow-left"></i> Volver a Inicio</button>
+            <div class="module-content">
+                <h2><i class="fas fa-history"></i> Módulo 3 · Desarrollo Histórico de la Sociología</h2>
+
+                <h3>Contexto sociohistórico de surgimiento</h3>
+                <p>El surgimiento formal de la Sociología como campo científico independiente entre los siglos XVIII y XIX no fue un evento fortuito, sino la respuesta directa a un periodo de agudas crisis y transformaciones socioeconómicas e intelectuales en Europa. Ante el colapso de las instituciones tradicionales, el desorden comunitario y el crecimiento acelerado de las ciudades, los primeros pensadores sintieron la necesidad urgente de trasladar la rigurosidad y el método de las ciencias naturales al análisis de las interacciones humanas para comprender y ordenar el nuevo mundo emergente.</p>
+                <p>Este marco sociohistórico estuvo estructurado por tres hitos fundamentales:</p>
+                <ul>
+                    <li><strong>La Ilustración (Siglo XVIII):</strong> Movimiento intelectual que promovió el uso de la razón para combatir la ignorancia, sentando la premisa clave de que el Método Científico debía aplicarse a la explicación de la realidad humana.</li>
+                    <li><strong>La Revolución Francesa (1789-1799):</strong> Conflicto político y social que desmanteló el régimen feudal y la monarquía, separó a la Iglesia del poder político y consolidó el Estado moderno bajo el dominio de la burguesía.</li>
+                    <li><strong>La Revolución Industrial (Siglos XVIII y XIX):</strong> Proceso de transformación tecno-económica caracterizado por la mecanización y las máquinas de vapor, que dio paso al capitalismo industrial y desencadenó profundas desigualdades y luchas de clase entre la burguesía y el proletariado.</li>
+                </ul>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="year">S. XVIII</span>
+                        <p><strong>Ilustración:</strong> Confianza en la razón y la ciencia. Se cuestiona el orden tradicional.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="year">1789</span>
+                        <p><strong>Revolución Francesa:</strong> Transformación política y social. Surgen nuevas ideas sobre libertad e igualdad.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="year">S. XVIII-XIX</span>
+                        <p><strong>Revolución Industrial:</strong> Urbanización, capitalismo, nuevas clases sociales y problemas sociales.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="year">1838</span>
+                        <p><strong>Acuñaci&oacute;n del t&eacute;rmino "Sociolog&iacute;a":</strong> Auguste Comte propone una ciencia de la sociedad.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="year">S. XIX</span>
+                        <p><strong>Institucionalización:</strong> Durkheim, Marx y Weber consolidan la sociología como disciplina académica.</p>
+                    </div>
+                </div>
+                <p style="margin-top:0.8rem;">La sociología es conocida como <em>"la ciencia de la crisis"</em> por su origen en un periodo de profundos cambios.</p>
+            </div>
+        </div>
+
+        <!-- ==================== MÓDULO 4 ==================== -->
+        <div id="screen-modulo4" class="screen">
+            <button class="btn-back" data-screen="inicio"><i class="fas fa-arrow-left"></i> Volver a Inicio</button>
+            <div class="module-content">
+                <h2><i class="fas fa-user-tie"></i> Módulo 4 · Precursores y Exponentes de la Sociología</h2>
+                <p>La sociología se desarrolló gracias a las aportaciones de diferentes pensadores que buscaron comprender cómo funciona la sociedad, cómo se organizan las personas, cuáles son los problemas sociales y de qué manera ocurren los cambios dentro de las sociedades. Entre los principales precursores y exponentes se encuentran Henri de Saint-Simon, Auguste Comte, Herbert Spencer, Émile Durkheim, Karl Marx y Max Weber.</p>
+
+                <h3>Henri de Saint-Simon</h3>
+                <p>Henri de Saint-Simon fue un pensador francés considerado uno de los principales precursores de la sociología. Su pensamiento estuvo relacionado con el desarrollo de una sociedad industrial y científica.</p>
+                <p>Saint-Simon consideraba que la sociedad podía ser estudiada de manera científica, de forma similar a como se estudian otros fenómenos. Propuso la idea de una especie de "fisiología social" o "física social", cuyo objetivo sería comprender la organización y funcionamiento de la sociedad.</p>
+                <p>También destacó la importancia de la industria, la ciencia y la tecnología para el desarrollo social. Consideraba que la sociedad debía organizarse de manera que los trabajadores, empresarios, científicos e industriales contribuyeran al bienestar colectivo.</p>
+
+                <h3>Auguste Comte</h3>
+                <p>Auguste Comte es considerado uno de los principales fundadores de la sociología y es conocido como el padre de esta disciplina. Fue quien utilizó el término "sociología" para referirse al estudio científico de la sociedad.</p>
+                <p>Comte sostenía que los fenómenos sociales podían ser estudiados mediante métodos científicos. Su intención era descubrir leyes que permitieran comprender el funcionamiento y desarrollo de las sociedades.</p>
+                <p>Una de sus principales aportaciones fue la <strong>Ley de los Tres Estadios</strong>, que explica la evolución del pensamiento humano en tres etapas:</p>
+                <ul>
+                    <li><strong>Estadio teológico:</strong> los fenómenos se explican principalmente mediante fuerzas sobrenaturales o religiosas.</li>
+                    <li><strong>Estadio metafísico:</strong> las explicaciones se basan en conceptos abstractos y filosóficos.</li>
+                    <li><strong>Estadio positivo o científico:</strong> los fenómenos se estudian mediante la observación, la comparación, la experimentación y el método científico.</li>
+                </ul>
+                <p>Para Comte, la sociología debía utilizar el conocimiento científico para comprender y mejorar la sociedad.</p>
+
+                <h3>Herbert Spencer</h3>
+                <p>Herbert Spencer fue un pensador interesado en las ciencias naturales y en la evolución. Aplicó algunas ideas relacionadas con la evolución al estudio de la sociedad.</p>
+                <p>Spencer comparó la sociedad con un organismo vivo. Según esta comparación, las diferentes partes de la sociedad cumplen determinadas funciones y están relacionadas entre sí.</p>
+                <p>También desarrolló ideas relacionadas con la evolución social y posteriormente estas fueron vinculadas con el llamado <strong>Darwinismo Social</strong>. Estas ideas llegaron a utilizarse históricamente para justificar diferencias sociales, desigualdades y relaciones de dominación.</p>
+
+                <h3>Émile Durkheim</h3>
+                <p>Émile Durkheim fue uno de los fundadores de la sociología y tuvo un papel fundamental en su consolidación como disciplina académica.</p>
+                <p>Durkheim estableció la importancia de estudiar la sociedad de manera objetiva. Una de sus principales aportaciones fue el concepto de <strong>hecho social</strong>.</p>
+                <p>Los hechos sociales son formas colectivas de actuar, pensar y sentir que existen en una sociedad y que pueden influir sobre el comportamiento de los individuos. Estos pueden ejercer una presión sobre las personas, ya que forman parte de las normas y costumbres de la sociedad.</p>
+                <p>Entre los ejemplos de hechos sociales se encuentran: la religión, el lenguaje, las leyes, las costumbres, las tradiciones, la moda, la cultura, el sistema económico, el Estado y las relaciones de poder.</p>
+                <p>Durkheim planteó que para estudiar estos fenómenos era necesario evitar prejuicios y analizar las características sociales de manera objetiva.</p>
+
+                <h3>Karl Marx</h3>
+                <p>Karl Marx fue filósofo, economista y pensador social. Sus ideas tuvieron una gran influencia en el estudio de la sociedad y en el desarrollo de las teorías relacionadas con el conflicto y el materialismo histórico.</p>
+                <p>Marx analizó principalmente las relaciones económicas y las diferencias entre las clases sociales. Para él, gran parte de la historia de las sociedades está relacionada con la <strong>lucha de clases</strong>.</p>
+                <p>En la sociedad capitalista identificó principalmente dos grandes clases:</p>
+                <ul>
+                    <li><strong>Burguesía:</strong> propietarios de los medios de producción.</li>
+                    <li><strong>Proletariado:</strong> trabajadores que venden su fuerza de trabajo a cambio de un salario.</li>
+                </ul>
+                <p>Marx también desarrolló el concepto de <strong>plusvalía</strong>, relacionado con la diferencia entre el valor producido por el trabajador y el salario que recibe.</p>
+                <p>Entre sus obras más importantes se encuentran <strong>El Manifiesto Comunista</strong>, escrito junto con Friedrich Engels, y <strong>El Capital</strong>.</p>
+
+                <h3>Max Weber</h3>
+                <p>Max Weber fue uno de los principales exponentes de la sociología y desarrolló una forma diferente de estudiar la sociedad. Para Weber, era importante comprender el significado que las personas dan a sus acciones.</p>
+                <p>Su concepto central es la <strong>acción social</strong>. Una acción es social cuando la persona que la realiza le atribuye un significado y la orienta tomando en cuenta a otras personas.</p>
+                <p>Weber identificó cuatro tipos principales de acción social:</p>
+                <ul>
+                    <li><strong>Acción racional con arreglo a fines:</strong> se realiza buscando alcanzar un objetivo determinado.</li>
+                    <li><strong>Acción racional con arreglo a valores:</strong> se realiza de acuerdo con determinados valores o principios.</li>
+                    <li><strong>Acción afectiva:</strong> está relacionada con emociones y sentimientos.</li>
+                    <li><strong>Acción tradicional:</strong> se realiza debido a costumbres o hábitos.</li>
+                </ul>
+                <p>Weber también desarrolló el concepto de <strong>Verstehen</strong>, que significa comprender o interpretar el significado y los motivos que existen detrás de las acciones sociales.</p>
+            </div>
+        </div>
+
+        <!-- ==================== MÓDULO 5 ==================== -->
+        <div id="screen-modulo5" class="screen">
+            <button class="btn-back" data-screen="inicio"><i class="fas fa-arrow-left"></i> Volver a Inicio</button>
+            <div class="module-content">
+                <h2><i class="fas fa-layer-group"></i> Módulo 5 · Principales Corrientes y Teorías Sociológicas</h2>
+                <p>Las corrientes y teorías sociológicas son diferentes formas de analizar y explicar la sociedad. Cada una pone atención en determinados aspectos, como el orden social, las relaciones económicas, los conflictos, el poder, las instituciones o las acciones de las personas.</p>
+
+                <div class="accordion">
+                    <div class="accordion-item open">
+                        <button class="accordion-header">
+                            <span><i class="fas fa-microscope" style="margin-right:0.6rem;"></i> Positivismo</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-body">
+                            <p>El positivismo está relacionado principalmente con el pensamiento de <strong>Auguste Comte</strong>.</p>
+                            <p>Esta corriente sostiene que la sociedad puede estudiarse de manera científica. Para comprender los fenómenos sociales se deben utilizar métodos basados en la observación y en el análisis de los hechos.</p>
+                            <p>Comte consideraba que el conocimiento científico representaba una etapa superior del desarrollo del pensamiento humano. Por ello, la sociología debía estudiar la sociedad de forma objetiva y buscar explicaciones basadas en hechos observables.</p>
+                            <p><strong>Características principales:</strong></p>
+                            <ul>
+                                <li>Estudia la sociedad mediante métodos científicos.</li>
+                                <li>Da importancia a la observación.</li>
+                                <li>Busca explicar los fenómenos sociales.</li>
+                                <li>Considera posible encontrar regularidades y leyes sociales.</li>
+                                <li>Está relacionado con la Ley de los Tres Estadios de Comte.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span><i class="fas fa-hammer" style="margin-right:0.6rem;"></i> Materialismo Histórico</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-body">
+                            <p>El <strong>materialismo histórico</strong> está relacionado principalmente con Karl Marx y Friedrich Engels.</p>
+                            <p>Esta teoría busca explicar los cambios históricos y sociales a partir de las condiciones materiales y económicas de las sociedades.</p>
+                            <p>Para el materialismo histórico, las personas necesitan producir los bienes necesarios para vivir y, al hacerlo, establecen determinadas relaciones sociales y económicas.</p>
+                            <p><strong>Conceptos importantes:</strong></p>
+                            <ul>
+                                <li><strong>Modo de producción:</strong> forma en que una sociedad organiza la producción y distribución de bienes y servicios.</li>
+                                <li><strong>Fuerzas productivas:</strong> elementos utilizados para producir, como el trabajo, conocimientos y medios de producción.</li>
+                                <li><strong>Relaciones de producción:</strong> relaciones que se establecen entre las personas dentro del proceso productivo.</li>
+                                <li><strong>Burguesía:</strong> clase propietaria de los medios de producción en el capitalismo.</li>
+                                <li><strong>Proletariado:</strong> trabajadores que venden su fuerza de trabajo.</li>
+                                <li><strong>Plusvalía:</strong> valor relacionado con la diferencia entre lo producido por el trabajador y su remuneración.</li>
+                                <li><strong>Lucha de clases:</strong> conflicto entre grupos sociales con intereses diferentes.</li>
+                            </ul>
+                            <p><strong>Modos de Producción:</strong></p>
+                            <ul>
+                                <li><strong>Comunismo primitivo:</strong> Cooperación, trabajo colectivo y ausencia de propiedad privada.</li>
+                                <li><strong>Esclavismo:</strong> Utilización de personas esclavizadas como fuerza de trabajo.</li>
+                                <li><strong>Feudalismo:</strong> La tierra tenía importancia fundamental, relaciones entre señores feudales y siervos.</li>
+                                <li><strong>Capitalismo:</strong> Propiedad privada de los medios de producción y economía basada en el mercado.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span><i class="fas fa-sitemap" style="margin-right:0.6rem;"></i> Estructural Funcionalismo</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-body">
+                            <p>El <strong>estructural funcionalismo</strong> considera a la sociedad como un sistema compuesto por diferentes partes que están relacionadas entre sí.</p>
+                            <p>Las instituciones, normas, roles y grupos sociales cumplen determinadas funciones y contribuyen al funcionamiento de la sociedad.</p>
+                            <p><strong>Talcott Parsons y el modelo AGIL:</strong></p>
+                            <ul>
+                                <li><strong>A — Adaptación:</strong> capacidad de obtener y utilizar recursos del entorno.</li>
+                                <li><strong>G — Logro de objetivos:</strong> capacidad para establecer y alcanzar metas.</li>
+                                <li><strong>I — Integración:</strong> coordinación de las diferentes partes del sistema.</li>
+                                <li><strong>L — Latencia o mantenimiento de patrones:</strong> conservación de valores y patrones culturales.</li>
+                            </ul>
+                            <p><strong>Conceptos del estructural funcionalismo:</strong></p>
+                            <ul>
+                                <li><strong>Estatus:</strong> posición que ocupa una persona dentro de la sociedad.</li>
+                                <li><strong>Rol:</strong> comportamiento o función relacionada con una determinada posición social.</li>
+                                <li><strong>Grupo social:</strong> conjunto de personas que mantienen relaciones sociales.</li>
+                                <li><strong>Categoría social:</strong> conjunto de personas que comparten alguna característica.</li>
+                                <li><strong>Estratificación social:</strong> división de la sociedad en diferentes niveles o estratos.</li>
+                                <li><strong>Socialización:</strong> proceso mediante el cual las personas aprenden normas, valores y formas de comportamiento de su sociedad.</li>
+                            </ul>
+                            <p><strong>Críticas:</strong> Presta demasiada atención al orden y la estabilidad, dejando en segundo plano los conflictos y desigualdades. Desde una perspectiva marxista, puede contribuir a justificar instituciones existentes.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span><i class="fas fa-balance-scale" style="margin-right:0.6rem;"></i> Teoría del Conflicto y Teoría Crítica</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-body">
+                            <p><strong>Teoría del Conflicto:</strong> Sostiene que el conflicto forma parte de la sociedad y que puede surgir debido a diferencias de intereses, valores, poder y recursos entre diferentes grupos. Los grupos sociales pueden competir por recursos, ventajas y posiciones de poder.</p>
+                            <p><strong>Elementos importantes:</strong></p>
+                            <ul>
+                                <li>Las relaciones de poder.</li>
+                                <li>Los intereses de los diferentes grupos.</li>
+                                <li>La distribución de los recursos.</li>
+                                <li>Las desigualdades sociales.</li>
+                                <li>Las estructuras sociales.</li>
+                                <li>Las ideologías y valores.</li>
+                                <li>Los procesos de cambio social.</li>
+                            </ul>
+                            <p><strong>Teoría Crítica:</strong> Está relacionada con la <strong>Escuela de Frankfurt</strong> y se interesa por analizar las relaciones de poder y las formas de dominación presentes en la sociedad. Esta perspectiva busca comprender cómo determinadas estructuras sociales, económicas y culturales pueden mantener relaciones de desigualdad o dominación.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top:1.5rem;">Importancia de las teorías sociológicas</h3>
+                <p>Las diferentes corrientes sociológicas permiten analizar la sociedad desde distintas perspectivas. El <strong>positivismo</strong> permite observar la sociedad desde una perspectiva científica; el <strong>materialismo histórico</strong> presta especial atención a las condiciones económicas y las clases sociales; el <strong>estructural funcionalismo</strong> analiza cómo las diferentes partes de la sociedad contribuyen a su funcionamiento; la <strong>teoría del conflicto</strong> estudia las desigualdades, intereses y relaciones de poder; y la <strong>teoría crítica</strong> analiza las formas de dominación y las estructuras que pueden reproducir desigualdades.</p>
+            </div>
+        </div>
+
+        <!-- ==================== EXÁMENES (pantalla principal) ==================== -->
+        <div id="screen-examenes" class="screen">
+            <button class="btn-back" data-screen="inicio"><i class="fas fa-arrow-left"></i> Volver a Inicio</button>
+            <h2 style="color:var(--primary); display:flex; align-items:center; gap:0.6rem;">
+                <i class="fas fa-pencil-alt" style="color:var(--accent);"></i> Evaluaciones
+            </h2>
+            <p style="color:var(--text-muted);">Selecciona una prueba para comenzar.</p>
+
+            <div class="exam-grid">
+                <div class="exam-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Autoevaluación</h3>
+                    <p>Repasa los conceptos básicos con 3 preguntas. Obtén retroalimentación inmediata.</p>
+                    <button class="btn-exam" data-screen="autoevaluacion">Comenzar autoevaluación</button>
+                </div>
+                <div class="exam-card">
+                    <i class="fas fa-star"></i>
+                    <h3>Examen Final</h3>
+                    <p>Demuestra tu dominio de la unidad con 4 preguntas que abarcan todos los módulos.</p>
+                    <button class="btn-exam" data-screen="examenfinal">Comenzar examen final</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== AUTOEVALUACIÓN (subpantalla) ==================== -->
+        <div id="screen-autoevaluacion" class="screen">
+            <button class="btn-back" data-screen="examenes"><i class="fas fa-arrow-left"></i> Volver a Exámenes</button>
+            <div class="module-content">
+                <h2><i class="fas fa-check-circle" style="color:var(--accent);"></i> Autoevaluación</h2>
+                <p>Responde las siguientes preguntas y luego presiona "Corregir".</p>
+                <div class="quiz-area" id="autoevaluacion">
+                    <div class="quiz-question">
+                        <p>1. ¿Quién acuñó el término "sociología"?</p>
+                        <label><input type="radio" name="q1" value="a" /> a) Karl Marx</label>
+                        <label><input type="radio" name="q1" value="b" /> b) Auguste Comte</label>
+                        <label><input type="radio" name="q1" value="c" /> c) Émile Durkheim</label>
+                        <label><input type="radio" name="q1" value="d" /> d) Max Weber</label>
+                    </div>
+                    <div class="quiz-question">
+                        <p>2. ¿Qué corriente sociológica se asocia principalmente con Karl Marx?</p>
+                        <label><input type="radio" name="q2" value="a" /> a) Positivismo</label>
+                        <label><input type="radio" name="q2" value="b" /> b) Estructural funcionalismo</label>
+                        <label><input type="radio" name="q2" value="c" /> c) Materialismo histórico</label>
+                        <label><input type="radio" name="q2" value="d" /> d) Teoría crítica</label>
+                    </div>
+                    <div class="quiz-question">
+                        <p>3. ¿Cuál fue uno de los contextos históricos clave para el surgimiento de la sociología?</p>
+                        <label><input type="radio" name="q3" value="a" /> a) Revolución Industrial</label>
+                        <label><input type="radio" name="q3" value="b" /> b) Revolución Rusa</label>
+                        <label><input type="radio" name="q3" value="c" /> c) Guerra Fría</label>
+                        <label><input type="radio" name="q3" value="d" /> d) Revolución Digital</label>
+                    </div>
+                    <div class="flex-center">
+                        <button class="btn" id="btnAutoeval"><i class="fas fa-check"></i> Corregir autoevaluación</button>
+                        <button class="btn btn-outline" id="btnResetAuto"><i class="fas fa-undo"></i> Reiniciar</button>
+                    </div>
+                    <div id="resultAuto" class="result-box"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== EXAMEN FINAL (subpantalla) ==================== -->
+        <div id="screen-examenfinal" class="screen">
+            <button class="btn-back" data-screen="examenes"><i class="fas fa-arrow-left"></i> Volver a Exámenes</button>
+            <div class="module-content">
+                <h2><i class="fas fa-star" style="color:var(--accent);"></i> Examen Final de Unidad</h2>
+                <p>Contesta las 4 preguntas y califica tu conocimiento global.</p>
+                <div class="quiz-area" id="examenFinal">
+                    <div class="quiz-question">
+                        <p>1. La sociología es una ciencia que estudia principalmente:</p>
+                        <label><input type="radio" name="f1" value="a" /> a) Los astros y el universo</label>
+                        <label><input type="radio" name="f1" value="b" /> b) La sociedad y sus relaciones</label>
+                        <label><input type="radio" name="f1" value="c" /> c) La mente humana individual</label>
+                        <label><input type="radio" name="f1" value="d" /> d) Los ecosistemas naturales</label>
+                    </div>
+                    <div class="quiz-question">
+                        <p>2. ¿Qué autor es considerado el padre del positivismo sociológico?</p>
+                        <label><input type="radio" name="f2" value="a" /> a) Herbert Spencer</label>
+                        <label><input type="radio" name="f2" value="b" /> b) Auguste Comte</label>
+                        <label><input type="radio" name="f2" value="c" /> c) Max Weber</label>
+                        <label><input type="radio" name="f2" value="d" /> d) Talcott Parsons</label>
+                    </div>
+                    <div class="quiz-question">
+                        <p>3. El materialismo histórico sostiene que el factor determinante en la historia es:</p>
+                        <label><input type="radio" name="f3" value="a" /> a) La religión</label>
+                        <label><input type="radio" name="f3" value="b" /> b) La economía y las condiciones materiales</label>
+                        <label><input type="radio" name="f3" value="c" /> c) Las ideas políticas</label>
+                        <label><input type="radio" name="f3" value="d" /> d) La psicología individual</label>
+                    </div>
+                    <div class="quiz-question">
+                        <p>4. ¿Cuál de las siguientes NO es una corriente sociológica clásica?</p>
+                        <label><input type="radio" name="f4" value="a" /> a) Positivismo</label>
+                        <label><input type="radio" name="f4" value="b" /> b) Estructural funcionalismo</label>
+                        <label><input type="radio" name="f4" value="c" /> c) Conductismo radical</label>
+                        <label><input type="radio" name="f4" value="d" /> d) Teoría crítica</label>
+                    </div>
+                    <div class="flex-center">
+                        <button class="btn" id="btnExamen"><i class="fas fa-check-double"></i> Calificar examen final</button>
+                        <button class="btn btn-outline" id="btnResetExamen"><i class="fas fa-undo"></i> Reiniciar</button>
+                    </div>
+                    <div id="resultExamen" class="result-box"></div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /screen-container -->
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <img src="UGB_LOGOTIPO.png" alt="UGB" />
+            <p>Universidad Gerardo Barrios · Introducción a la Sociología</p>
+            <p style="font-size:0.8rem; opacity:0.6;">&copy; 2026 · Estudio de desarrollo web · Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ----- NAVEGACIÓN ENTRE PANTALLAS -----
+            const screens = {
+                inicio: document.getElementById('screen-inicio'),
+                modulo1: document.getElementById('screen-modulo1'),
+                modulo2: document.getElementById('screen-modulo2'),
+                modulo3: document.getElementById('screen-modulo3'),
+                modulo4: document.getElementById('screen-modulo4'),
+                modulo5: document.getElementById('screen-modulo5'),
+                examenes: document.getElementById('screen-examenes'),
+                autoevaluacion: document.getElementById('screen-autoevaluacion'),
+                examenfinal: document.getElementById('screen-examenfinal'),
+            };
+
+            const navButtons = document.querySelectorAll('nav button[data-screen]');
+            const allScreenButtons = document.querySelectorAll('[data-screen]');
+
+            function mostrarPantalla(screenId) {
+                // Ocultar todas
+                Object.values(screens).forEach(el => {
+                    if (el) {
+                        el.classList.remove('active');
+                    }
+                });
+
+                // Mostrar la seleccionada
+                const target = screens[screenId];
+                if (target) {
+                    target.classList.add('active');
+                }
+
+                // Actualizar clase activa en menú superior
+                navButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.screen === screenId) {
+                        btn.classList.add('active');
+                    }
+                });
+
+                // Scroll al inicio de la pantalla
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Event listeners para todos los botones con data-screen
+            allScreenButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const screen = this.dataset.screen;
+                    if (screen) {
+                        mostrarPantalla(screen);
+                    }
+                });
+            });
+
+            // Inicializar: mostrar Inicio
+            mostrarPantalla('inicio');
+
+            // ----- ACCORDION (Módulo 5) -----
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const item = this.parentElement;
+                    item.classList.toggle('open');
+                });
+            });
+
+            // ----- AUTOEVALUACIÓN -----
+            const btnAuto = document.getElementById('btnAutoeval');
+            const resultAuto = document.getElementById('resultAuto');
+            const resetAuto = document.getElementById('btnResetAuto');
+
+            const autoAnswers = { q1: 'b', q2: 'c', q3: 'a' };
+
+            function corregirAuto() {
+                let correctas = 0;
+                let total = 3;
+                for (let i = 1; i <= total; i++) {
+                    const name = 'q' + i;
+                    const selected = document.querySelector(`#autoevaluacion input[name="${name}"]:checked`);
+                    if (selected && selected.value === autoAnswers[name]) {
+                        correctas++;
+                    }
+                }
+                resultAuto.className = 'result-box show';
+                if (correctas === total) {
+                    resultAuto.classList.add('success');
+                    resultAuto.innerHTML = `<i class="fas fa-check-circle"></i> ¡Excelente! Has respondido correctamente todas las preguntas (${correctas}/${total}).`;
+                } else {
+                    resultAuto.classList.add('error');
+                    resultAuto.innerHTML =
+                        `<i class="fas fa-times-circle"></i> Has acertado ${correctas} de ${total}. Revisa los módulos y vuelve a intentarlo.`;
+                }
+                resultAuto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            function resetAutoFn() {
+                document.querySelectorAll('#autoevaluacion input[type="radio"]').forEach(el => el.checked = false);
+                resultAuto.className = 'result-box';
+                resultAuto.innerHTML = '';
+            }
+
+            if (btnAuto) btnAuto.addEventListener('click', corregirAuto);
+            if (resetAuto) resetAuto.addEventListener('click', resetAutoFn);
+
+            // ----- EXAMEN FINAL -----
+            const btnExamen = document.getElementById('btnExamen');
+            const resultExamen = document.getElementById('resultExamen');
+            const resetExamen = document.getElementById('btnResetExamen');
+
+            const finalAnswers = { f1: 'b', f2: 'b', f3: 'b', f4: 'c' };
+
+            function corregirExamen() {
+                let correctas = 0;
+                let total = 4;
+                for (let i = 1; i <= total; i++) {
+                    const name = 'f' + i;
+                    const selected = document.querySelector(`#examenFinal input[name="${name}"]:checked`);
+                    if (selected && selected.value === finalAnswers[name]) {
+                        correctas++;
+                    }
+                }
+                resultExamen.className = 'result-box show';
+                if (correctas === total) {
+                    resultExamen.classList.add('success');
+                    resultExamen.innerHTML = `<i class="fas fa-trophy"></i> ¡Felicidades! Dominas la Unidad 1 (${correctas}/${total}).`;
+                } else {
+                    resultExamen.classList.add('error');
+                    resultExamen.innerHTML =
+                        `<i class="fas fa-book-open"></i> Obtuviste ${correctas}/${total}. Te sugerimos repasar los módulos 1 a 5.`;
+                }
+                resultExamen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            function resetExamenFn() {
+                document.querySelectorAll('#examenFinal input[type="radio"]').forEach(el => el.checked = false);
+                resultExamen.className = 'result-box';
+                resultExamen.innerHTML = '';
+            }
+
+            if (btnExamen) btnExamen.addEventListener('click', corregirExamen);
+            if (resetExamen) resetExamen.addEventListener('click', resetExamenFn);
+
+        })();
+    </script>
+
+</body>
+</html>
